@@ -9,7 +9,7 @@ class BancosController extends Controller
 {
     public function index(Request $req)
     {
-        $perPage = $req->get('perPage', 15);
+        $perPage = $req->get('perPage', 30);
 
         return Bancos::paginate($perPage);
     }
@@ -20,5 +20,10 @@ class BancosController extends Controller
 
         if (!$banco) return response()->json(['error' => true, 'msg' => 'Banco não encontrado']);
         return $banco;
+    }
+
+    public function home()
+    {
+        return view('bancos.home');
     }
 }
