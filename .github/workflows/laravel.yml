@@ -53,16 +53,7 @@ jobs:
     
     - name: Wait for the `app` container to be ready
       run: |
-        # Wait for `php-fpm` to be ready
-        for i in {1..30}; do
-          if curl --silent --fail http://localhost; then
-            echo "App container is ready!"
-            break
-          else
-            echo "Waiting for app container to be ready... ($i/30)"
-            sleep 5
-          fi
-        done
+        sleep 50
 
     # Install Composer in the app container
     - name: Install Composer in the app container
