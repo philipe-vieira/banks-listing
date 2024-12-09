@@ -42,7 +42,7 @@ jobs:
 
     - name: Build and start Docker containers
       run: |
-        docker-compose -f docker-compose.yml up -d
+        docker-compose -f docker-compose.yml up -d --build
 
     - name: Wait for the MySQL database to be ready
       run: |
@@ -50,21 +50,6 @@ jobs:
           echo "Waiting for MySQL to be ready..."
           sleep 5
         done
-    
-    - name: Wait for the `app` container to be ready
-      run: |
-        sleep 50
-
-    # Install Composer in the app container
-    - name: Install Composer in the app container
-      run: |
-        docker exec $(docker ps -qf "name=app") bash -c "curl -sS https://getcomposer.org/installer | php"
-        docker exec $(docker ps -qf "name=app") bash -c "mv composer.phar /usr/local/bin/composer"
-
-    # Install Composer dependencies inside the app container
-    - name: Install Composer dependencies
-      run: |
-        docker exec $(docker ps -qf "name=app") bash -c "composer install --no-interaction --prefer-dist"
 
     - name: Run tests inside the app container
       run: |
