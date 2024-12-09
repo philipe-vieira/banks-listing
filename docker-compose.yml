@@ -21,10 +21,11 @@ volumes:
 
 services:
   app:
-    image: php:8.3-fpm
+    build:
+      context: ./docker/php
     working_dir: /var/www
     # user: ${HOST_UID}:${HOST_GID}
-    entrypoint: ["bash", "-c", "docker-php-ext-install pdo pdo_mysql mysqli && apt-get update && apt-get install -y libzip-dev zip unzip git && php artisan migrate && php-fpm"]
+    entrypoint: ["bash", "-c", "composer install --no-interaction --prefer-dist && php artisan migrate && php-fpm"]
     volumes:
       - app:/var/www
     depends_on:
@@ -63,3 +64,9 @@ services:
       - "${DB_PORT}:3306"
     networks:
       - internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
