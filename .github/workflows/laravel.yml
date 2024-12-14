@@ -53,7 +53,7 @@ jobs:
 
     - name: Run tests inside the app container
       run: |
-        docker-compose exec app bash -c "php artisan migrate --force && php artisan test"
+        docker-compose exec -T app bash -c "php artisan migrate --force && php artisan test"
 
     - name: Shutdown Docker containers
       run: |
