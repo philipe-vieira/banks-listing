@@ -1,66 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">Banks Listing</h1>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img alt="Website" src="https://img.shields.io/website?url=http%3A%2F%2Fec2-98-81-163-76.compute-1.amazonaws.com%2F">
+<img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/philipe-vieira/banks-listing/laravel.yml?logo=githubactions&logoColor=white&label=tests">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/philipe-vieira/banks-listing">
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/philipe-vieira/banks-listing">
+<img alt="License" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Banks Listing** é uma aplicação web de teste projetada para fornecer uma maneira rápida de visualizar e buscar instituições financeiras. Através de sua interface simples, a aplicação exibe uma listagem paginada de bancos, permitindo aos usuários encontrar facilmente as instituições que estão procurando, com uma busca dinâmica que filtra os resultados em tempo real. A API conta com duas rotas principais que garantem uma boa navegação: a primeira, para obter a lista completa de bancos com paginação, e a segunda, para acessar informações detalhadas sobre qualquer banco específico.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<div align="center">
+    <img alt="Home" src="./.github/images/home.png">
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requisitos
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose Plugin](https://docs.docker.com/compose/install/)
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Rodando localmente
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Faça um clone do repositório localmente.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+  git clone https://github.com/philipe-vieira/banks-listing; cd banks-listing
+```
 
-## Laravel Sponsors
+Faça uma cópia do arquivo `.env.example` para o `.env`, e configure as variáveis de ambiente conforme sua preferência.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+  cp .env.example .env
+```
 
-### Premium Partners
+Para executar esta aplicação localmente faça uma cópia do arquivo `.env.example` para `.env`, configure as variáveis de ambiente conforme sua preferência e use o comando abaixo para subir a aplicação
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+  docker compose -f docker-compose.yml up -d --build
+```
 
-## Contributing
+## Rodando os testes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Após executar a aplicação é possivel rodar os teste utilizando o seguinte comando
 
-## Code of Conduct
+```bash
+  docker exec app bash -c "php artisan test"
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Documentação da API
 
-## Security Vulnerabilities
+#### Retorna todos os bancos
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```http
+  GET /api/bancos
+```
 
-## License
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `perPage` | `int` | **Opcional**. A quantidade de itens em cada página da paginação |
+| `page` | `ibt` | **Opcional**. A página de itens desejada |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Retorna um banco específico
+
+```http
+  GET /api/banco/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `codigo`    | `int` | **Obrigatório**. O ID do banco desejado |
+
+## Tecnologias Utilizadas
+
+![PHP](https://img.shields.io/badge/PHP-8.2-8993be?style=for-the-badge&logo=php&logoColor=white)
+![Laravel Framework](https://img.shields.io/badge/Laravel-v11-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.4-00758f?style=for-the-badge&logo=mysql&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
+![jQuery](https://img.shields.io/badge/jQuery-1.9.1-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-0db7ed?style=for-the-badge&logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-latest-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![AWS Services](https://img.shields.io/badge/Amazon%20Web%20Services-Enabled-FF9900?style=for-the-badge&logo=amazonwebservices&logoColor=white)
+
+## Licença
+
+Este projeto é open-source sob licença [MIT license](https://spdx.org/licenses/MIT.html).
